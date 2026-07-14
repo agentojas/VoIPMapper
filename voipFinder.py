@@ -61,6 +61,18 @@ signal_urls = [
 ]
 
 
+wire_urls = [
+
+    "wire.count.ly",
+    "prod-nginz-https.wire.com",
+    "prod-nginz-ssl.wire.com",
+    "coturn-0.coturn.calling-prod-v01.wire.com",
+    "coturn-1.coturn.calling-prod-v01.wire.com",
+    "coturn-2.coturn.calling-prod-v01.wire.com",
+    "coturn-3.coturn.calling-prod-v01.wire.com"
+
+]
+
 # ============================================
 # Nslookup Process here
 #=========================================
@@ -78,12 +90,24 @@ def resolve_domains(domains):
     return ips
 
 
+ # ----------------------------------------------------------------------------------------------------------------------
+
+
+
 twitter_ips = resolve_domains(twitter_urls)
 snapchat_ips = resolve_domains(snapchat_urls)
 zangi_ips = resolve_domains(zangi_urls)
 signal_ips = resolve_domains(signal_urls)
+wire_ips = resolve_domains(wire_urls)
 
+print("Twitter IPs:", twitter_ips)
+print("Snapchat IPs:", snapchat_ips)
 print("Zangi IPs:", zangi_ips)
+print("Signal IPs:", signal_ips)
+print("Wire IPs:", wire_ips)
+
+
+
 
 # end declaration ---------------------------------------------------------------------------------------------------------------------
 
@@ -105,6 +129,7 @@ def previous_ip_match(df, current_index, ip_set, lookback=20):  # 20 Ip back if 
 
 
 # last 20 Ip checking Done -----------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------pink
 
 
 # ============================================
@@ -179,6 +204,14 @@ for index, row in df.iterrows():
 
             else:
                 org = "Unknown 141.101 VOIP"
+
+
+        if ip.startswith("18.199"):
+            if previous_ip_match(df, index, wire_ips):
+                org = "Wire Messenger Call"
+
+            else:
+                org = "Unknown 18.199 VOIP"
 
 
         elif ip.startswith("162.159."):
@@ -270,6 +303,18 @@ yellow_fill = PatternFill(
     end_color="FFFF00"
 )
 
+grey_fill = PatternFill(
+    fill_type="solid",
+    start_color="9C9C9C",
+    end_color="9C9C9C"
+)
+
+red_fill = PatternFill(
+    fill_type="solid",
+    start_color="FF0000",
+    end_color="FF0000"
+)
+
 white_font = Font(color="FFFFFF")
 
 # ==========================================
@@ -312,7 +357,7 @@ for row in ws.iter_rows(min_row=2):
         continue
 
     # ---------------------------------
-    # STUN Port 3478
+    #  Row Painting color Declare here
     # ---------------------------------
 
     if port == 3478:
@@ -348,6 +393,18 @@ for row in ws.iter_rows(min_row=2):
 
             for cell in row:
                 cell.fill = pink_fill
+
+        elif organization == "wire Messenger Call":
+
+            for cell in row:
+                cell.fill = grey_fill
+                cell.font = white_font
+
+        elif organization == "Signal Messenger Call":
+
+            for cell in row:
+                cell.fill = red_fill
+                cell.font = white_font
 
 # ==========================================
 # Save Workbook
