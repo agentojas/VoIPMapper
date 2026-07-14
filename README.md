@@ -9,8 +9,8 @@ VoIPMapper is a IPDR intelligence tool that maps destination IP addresses to VoI
 - Zangi
 - Discord
 - Twitter ( X ) 
-- Snapchat ( Will Added )
-- Linkedin ( Will Added )
+- Snapchat
+- Wire
 - Viber ( Will Added )
 - Threema ( Will Added )
-- Wire ( Will Added )
+  
