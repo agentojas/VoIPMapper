@@ -1,5 +1,5 @@
 # VoIPMapper
-VoIPMapper is a IPDR intelligence tool that maps destination IP addresses to VoIP platforms and messaging services, Social Media Infrastructure.
+VoIPMapper is a IPDR intelligence tool that maps destination IP addresses to VoIP platforms and messaging services, Social Media Infrastructure...
 
 ---
 
